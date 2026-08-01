@@ -4,12 +4,18 @@
   "version": "0.0.1",
   "author": "JP Pamintuan",
   "devDependencies": {
-    "codeceptjs": "2.5.0",
-    "webdriver": "5.22.1",
-    "@wdio/selenium-standalone-service": "5.16.10",
-    "mocha": "7.1.1",
-    "mochawesome": "6.1.0",
+    "codeceptjs": "2.3.5",
+    "webdriver": "5.10.0",
+    "@wdio/selenium-standalone-service": "5.10.2",
+    "mocha": "6.2.2",
+    "mochawesome": "4.1.0",
     "chai": "4.2.0",
+    "lodash": "4.17.11",
+    "minimist": "0.0.8",
+    "mkdirp": "0.5.1",
+    "serialize-javascript": "2.1.1",
+    "node-forge": "0.9.0",
+    "yargs-parser": "13.1.1",
     "import-export": "1.0.1"
   },
   "scripts": {
