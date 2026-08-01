@@ -1,28 +1,155 @@
 {
-  "name": "CodeceptJSWebDockerizedTest",
-  "description": "Dockerized Selenium Grid Web Automation Testing using CodeceptJS WebdriverIO plugin",
-  "version": "0.0.1",
-  "author": "JP Pamintuan",
-  "devDependencies": {
-    "codeceptjs": "2.3.5",
-    "webdriver": "5.10.0",
-    "@wdio/selenium-standalone-service": "5.10.2",
-    "mocha": "6.2.2",
-    "mochawesome": "4.1.0",
-    "chai": "4.2.0",
-    "lodash": "4.17.11",
-    "minimist": "0.0.8",
-    "mkdirp": "0.5.1",
-    "serialize-javascript": "2.1.1",
-    "node-forge": "0.9.0",
-    "yargs-parser": "13.1.1",
-    "import-export": "1.0.1"
+  "name": "react-spa",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@ant-design/plots": "^1.2.5",
+    "@babel/helper-string-parser": "^7.19.4",
+    "@react-keycloak/web": "3.4.0",
+    "antd": "^5.18.0",
+    "axios": "^0.30.2",
+    "bootstrap": "^5.3.7",
+    "csv-parser": "^3.2.0",
+    "date-fns": "^2.30.0",
+    "diff": "^8.0.2",
+    "export-to-csv": "1.2.2",
+    "file-saver": "^2.0.5",
+    "google-spreadsheet": "3.2.0",
+    "highcharts": "^9.0.1",
+    "highcharts-border-radius": "^0.0.4",
+    "highcharts-custom-events": "^3.0.10",
+    "highcharts-grouped-categories": "^1.3.0",
+    "highcharts-react-official": "^3.0.0",
+    "html2canvas": "^1.4.1",
+    "husky": "^4.3.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "3.5.31",
+    "keycloak-js": "16.1.1",
+    "lint-staged": "^10.4.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.25.3",
+    "moment-range": "^4.0.2",
+    "papaparse": "^5.5.3",
+    "prettier": "^2.1.2",
+    "query-string": "^6.12.1",
+    "react": "^17.0.2",
+    "react_reusable_components": "0.0.37",
+    "react-awesome-popover": "^6.1.1",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-bootstrap": "^2.10.10",
+    "react-custom-scrollbars": "4.2.1",
+    "react-device-detect": "^2.2.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^17.0.2",
+    "react-fast-marquee": "^1.3.5",
+    "react-intl": "^6.0.5",
+    "react-markdown": "^8.0.7",
+    "react-notifications": "^1.6.0",
+    "react-quill": "^2.0.0",
+    "react-responsive": "^9.0.0-beta.10",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-select": "^5.7.3",
+    "react-toastify": "8",
+    "react-tooltip": "^4.2.7",
+    "recharts": "2.15.4",
+    "saas": "^1.0.0",
+    "showdown": "^2.1.0",
+    "typewriter-effect": "2.18.2",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start:seleniumstandalone": "npx selenium-standalone start",
-    "test": "npx codeceptjs run-multiple parallel --all --steps --reporter mochawesome",
-    "start:seleniumdocker": "docker-compose -f docker-compose-selenium.yaml -p selenium up",
-    "test:docker": "docker run -it --rm -v $PWD:/tests/ --link selenium-hub:selenium --net selenium_default codeception/codeceptjs codeceptjs run-multiple parallel --profile 'selenium-hub' --all --steps --reporter mochawesome",
-    "test:insidedocker": "codeceptjs run-multiple parallel --profile 'selenium-hub' --all --steps --reporter mochawesome"
+    "postinstall": "node node_modules/husky/lib/installer/bin install",
+    "start": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && yarn run validate-proxy && NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src --ignore-path .gitignore",
+    "lint:fix": "eslint ./src --fix --ignore-path .gitignore",
+    "start-prod": "http-server ./build -p 80 -d false",
+    "download-fonts": "rm -rf public/fonts && node download-fonts.js",
+    "format": "prettier --ignore-path .gitignore --write '**/*.{js,json,scss,css}'",
+    "validate-proxy": "node validate-proxy.js",
+    "docker:start": "docker-compose up --build",
+    "docker:stop": "docker-compose down",
+    "docker:clean": "docker-compose down -v --remove-orphans && docker system prune -f"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "plugins": [
+      "unused-imports"
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off",
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          "vars": "all",
+          "varsIgnorePattern": "^_",
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "resolutions": {
+    "minimatch": "3.1.2",
+    "**/minimatch": "3.1.2",
+    "glob": "7.2.3",
+    "**/glob": "7.2.3",
+    "debug": "4.4.1",
+    "**/debug": "4.4.1",
+    "error-ex": "1.3.2",
+    "**/error-ex": "1.3.2",
+    "is-arrayish": "0.3.2",
+    "**/is-arrayish": "0.3.2",
+    "simple-swizzle": "0.2.2",
+    "**/simple-swizzle": "0.2.2"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "assert": "^2.1.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.1",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "glob": "^11.0.3",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "querystring-es3": "^0.2.1",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4",
+    "util": "^0.12.5"
   }
 }
